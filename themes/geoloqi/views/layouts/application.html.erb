@@ -78,7 +78,26 @@
 
     <% # Pick a subnav %>
 
-    <%= render(:partial => 'events/subnav') if link_class[:events] == 'active' %>
+    <% if link_class[:events] == 'active' %>
+      <div id="events_subnav" class="subnav">
+          <ul class="clearfix">
+            <li><%= link_to 'Overview', root_url,
+                    :class => subnav_class_for("site", "index") %>
+            </li>
+            <li><%= link_to 'Browse events', events_url,
+                    :class => subnav_class_for("events", "index") %>
+            </li>
+            <!--
+            <li><%= link_to 'Add an event', new_event_url,
+                    :class => subnav_class_for("events", "new") %>
+            </li>
+            <li><%= link_to 'Import event(s)', new_source_url,
+                    :class => subnav_class_for("sources", "new") %>
+            </li>
+            -->
+          </ul>
+      </div>
+    <% end %>
     <%= render(:partial => 'venues/subnav') if link_class[:venues] == 'active' %>
     <%= render(:partial => 'sources/subnav') if link_class[:import] == 'active' %>
 

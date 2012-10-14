@@ -1,11 +1,11 @@
 # Site's name:
-name: 'Calagator'
+name: 'Geoloqi Events'
 
 # Site's tagline:
-tagline: "Portland's Tech Calendar"
+tagline: "Geoloqi's Event Calendar"
 
 # Site's URL with trailing slash:
-url: 'http://calagator.org/'
+url: 'http://events.geoloqi.com/'
 
 # Default timezone, run "rake -D time" for information on how to display known timezones:
 timezone: 'Pacific Time (US & Canada)'
