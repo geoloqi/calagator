@@ -6,7 +6,7 @@ body {
 }
 
 #global_header {
-  background: #82c555;
+  background: #e37b2f;
   position: relative;
   height: 95px;
 }
@@ -25,14 +25,14 @@ body {
 
 
 #project_title {
-  background: url('/images/head_calagator.gif') no-repeat;
-  height: 31px;
-  left: 40px;
+  background: url('/images/geoloqi-events-calendar-header.png') no-repeat;
+  height: 41px;
+  left: 36px;
   overflow: hidden;
   position: absolute;
   text-indent: -999px;
-  top: 25px;
-  width: 135px;
+  top: 18px;
+  width: 370px;
 }
 
 #app_menu ul {
@@ -54,7 +54,7 @@ body {
 }
 
 #app_menu li.active {
-  background: url('/images/nav_marker.gif') no-repeat center bottom;
+  background: url('/images/nav_marker-lorange.png') no-repeat center bottom;
 }
 
 #project_menu {
@@ -74,7 +74,7 @@ body {
 
 .subnav {
   font-size: 1.2em;
-  background: #bcf794;
+  background: #ffc994;
   padding-left: 40px;
   line-height: 2em;
 }
@@ -95,7 +95,7 @@ body {
 }
 
 .subnav .active {
-  background: url('/images/subnav_marker.gif') no-repeat center bottom;
+  background: url('/images/subnav_marker.png') no-repeat center bottom;
 }
 
 
