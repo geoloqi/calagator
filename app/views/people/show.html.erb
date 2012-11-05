@@ -1,0 +1,64 @@
+<% tabindex_on '#search_field' %>
+
+<% content_for :discovery_insert do %>
+  <link rel="alternate" type="application/x-wiki" title="Edit this page" href="<%= edit_person_url(@person) %>" />
+<% end %>
+
+<div class="single_person contentbar">
+  <a href="#" id="person_sidebar_toggle" class="expander_toggle">Export or edit this person...</a>
+  <div id="person_sidebar" class='single_view_right sidebar'>
+    <div id='edit_link'>
+      <p>
+        You can <%= link_to "edit", edit_person_url(@person) %>
+        or <%= link_to "delete", person_url(@person), :method => :delete, :confirm => "Are you sure?" %>
+        this person.
+      </p>
+    </div>
+  </div>
+
+  <div class="hcard">
+    <h1 class="fn org"><%= @person.name %></h1>
+
+    <div class='photo'>
+      <img src="<%= @person.photo_url %>" />
+    </div>
+
+    <div class='info'>
+      <% if @person.nickname.present? %>
+        <h3>Nickname</h3>
+        <div class='nickname'><%= @person.nickname %></div>
+      <% end %>
+
+      <% if @person.website.present? %>
+        <h3>Website</h3>
+        <div class='website'><%= link_to(truncate(url_for(@person.website), :length => 80), url_for(@person.website)) %></div>
+      <% end %>
+
+      <% if @person.email.present? %>
+        <h3>Email</h3>
+        <div class='email'><%= mail_to @person.email %></div>
+      <% end %>
+
+      <% if @person.twitter.present? %>
+        <h3>Twitter</h3>
+        <div class='twitter'><%= @person.twitter %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <div id="google_map">
+    
+  </div>
+
+  <div id='events'>
+    <div id='future_events'>
+      <h2>Future events <%= @person.name %> is attending</h2>
+      <%= render :partial => 'events/list', :locals => { :events => @future_events } %>
+    </div>
+
+    <div id='past_events'>
+      <h2>Past events <%= @person.name %> attended</h2>
+      <%= render :partial => 'events/list', :locals => { :events => @past_events } %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<%= semantic_form_for(person, :html => {:id => 'person_form', :class => 'standard_form', :novalidate => 'novalidate'}) do |f| %>
+  <%= f.inputs :name => "#{'Editing: ' unless person.new_record?} <em>#{person.name}</em>".html_safe do %>
+    <li class='input'>
+      <p class='inline-hints'>You can <%= person.new_record? ? "enter" : "edit" %> the details of this person below.</p>
+    </li>
+    <%= f.input :name, :label => "Name" %>
+    <% focus_on '#person_name' %>
+
+    <%= f.input :nickname %>
+    <%= f.input :website %>
+    <%= f.input :email %>
+    <%= f.input :twitter %>
+
+  <% end %>
+
+  <%= f.buttons do %>
+    <%= f.commit_button %>
+  <% end %>
+<% end %>

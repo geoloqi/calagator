@@ -32,6 +32,13 @@ Calagator::Application.routes.draw do
     end
   end
 
+  resources :people do
+    collection do
+      post :squash_multiple_duplicates
+      get :search
+    end
+  end
+
   resources :versions, :only => [:edit]
   resources :changes, :controller => 'paper_trail_manager/changes'
   match 'recent_changes' => redirect("/changes")

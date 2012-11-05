@@ -307,6 +307,40 @@ ul.event_list .list_date {
 }
 
 
+/* @group Single Person
+----------------------------------------*/
+
+.single_person .hcard {
+  width: 500px;
+}
+.single_person .photo img {
+  float: right;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow:  0px 0px 6px 1px rgba(0, 0, 0, .3);
+  box-shadow:  0px 0px 6px 1px rgba(0, 0, 0, .3);
+}
+
+.single_person h1 {
+  padding-top: 0.5em;
+  margin: 0;
+  line-height: 1.2em;
+}
+
+.single_person h3 {
+  padding-top: 1.0em;
+  margin-bottom: 0.5em;
+  line-height: 0.5em;
+}
+
+.single_person #events {
+  margin-top: 1em;
+}
+
+/* @end */
+
+
 /* @group Venues
 ----------------------------------------*/
 

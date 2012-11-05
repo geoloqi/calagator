@@ -306,6 +306,24 @@ ul.event_list .list_date {
   background-color: #DDD;
 }
 
+/* @group Single Person
+----------------------------------------*/
+
+.single_person h1 {
+  padding-top: 0.5em;
+  margin: 0;
+  line-height: 1.2em;
+}
+
+.single_person h3 {
+  padding-top: 1.0em;
+  margin-bottom: 0.5em;
+  line-height: 0.5em;
+}
+
+
+/* @end */
+
 
 /* @group Venues
 ----------------------------------------*/

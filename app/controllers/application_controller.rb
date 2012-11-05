@@ -25,6 +25,7 @@ protected
                     controller_name == 'sources' ||
                     controller_name == 'site')  && 'active'),
       :venues => (controller_name == 'venues'  && 'active'),
+      :people => (controller_name == 'people' && 'active'),
     }
   end
   helper_method :link_class
