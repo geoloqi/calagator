@@ -71,10 +71,8 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       format.html { # show.html.erb
-        # @future_events = @venue.events.order("start_time ASC").future.non_duplicates.includes(:venue)
-        # @past_events = @venue.events.order("start_time DESC").past.non_duplicates.includes(:venue)
-        @future_events = []
-        @past_events = []
+        @future_events = @person.events.order("start_time ASC").future.non_duplicates.includes(:venue)
+        @past_events = @person.events.order("start_time DESC").past.non_duplicates.includes(:venue)
       }
       format.xml  { render :xml => @person }
       format.json  { render :json => @person, :callback => params[:callback] }

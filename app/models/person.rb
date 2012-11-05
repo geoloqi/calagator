@@ -31,6 +31,11 @@ class Person < ActiveRecord::Base
   include DuplicateChecking
   duplicate_checking_ignores_attributes    :person_id
 
+  # Attending
+  def events
+    events = Event.joins(:tags).where('tags.name' => "user:#{self.nickname}")
+  end
+
   #===[ Triggers ]========================================================
 
   def normalize_website!
