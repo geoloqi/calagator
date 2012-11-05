@@ -96,5 +96,13 @@ html_classes << " contentbar" if has_contentbar
         <%= tag_links_for event %>
     </div>
     <% end %>
+
+    <% unless event.user_tags.blank? -%>
+    <h3>Who will be there?</h3>
+    <div class="tags">
+        <%= user_links_for event %>
+    </div>
+    <% end %>
+
   </div>
 </div>

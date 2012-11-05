@@ -540,6 +540,14 @@ EOF
     end
   end
 
+  def user_tags
+    self.tags.reject{|tag| !tag.name.match /user:.+/}
+  end
+
+  def standard_tags
+    self.tags.reject{|tag| tag.name.match /user:.+/}
+  end
+
 protected
 
   def end_time_later_than_start_time

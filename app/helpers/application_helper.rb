@@ -150,7 +150,12 @@ module ApplicationHelper
   end
 
   def tag_links_for(model)
-    model.tags.map{|tag| tag_link(model.class.name.downcase.to_sym, tag)}.join(', ').html_safe
+    if model.respond_to? 'standard_tags'
+      tag_list = model.standard_tags
+    else
+      tag_list = model.tags
+    end
+    tag_list.map{|tag| tag_link(model.class.name.downcase.to_sym, tag)}.join(', ').html_safe
   end
 
   def tag_link(type, tag, link_class=nil)
@@ -164,6 +169,30 @@ module ApplicationHelper
     link_classes << "external #{tag.machine_tag[:namespace]} #{tag.machine_tag[:predicate]}" if tag.machine_tag[:url]
 
     link_to escape_once(tag.name), (tag.machine_tag[:url] || internal_url), :class => link_classes.compact.join(' ')
+  end
+
+  def user_links_for(model)
+    model.user_tags.map{|tag| tag_user_link(model.class.name.downcase.to_sym, tag)}.join(' ').html_safe
+  end
+
+  def tag_user_link(type, tag, link_class=nil)
+    internal_url = \
+      case type
+      when :event then search_events_path(:tag => tag.name)
+      when :venue then venues_path(:tag => tag.name)
+      end
+
+    link_classes = [link_class]
+    link_classes << "external #{tag.machine_tag[:namespace]} #{tag.machine_tag[:predicate]}" if tag.machine_tag[:url]
+
+    person = Person.where(:nickname => tag.name.match(/user:(.+)/)[1]).first
+    link_to(person, :class => link_classes.compact.join(' ')) do
+      raw '<div>' + build_person_thumbnail(person) + ' ' + person.name + '</div>'
+    end
+  end
+
+  def build_person_thumbnail(person)
+    '<img src="' + person.photo_url + '" class="photo thumbnail" width="50" />'
   end
 
   def subnav_class_for(controller_name, action_name)
