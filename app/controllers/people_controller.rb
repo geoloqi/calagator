@@ -12,7 +12,7 @@ class PeopleController < ApplicationController
     respond_to do |format|
       format.html # *.html.erb
       format.kml  # *.kml.erb
-      format.json { render :json => @people.to_json(:include => :venue), :callback => params[:callback] }
+      format.json { render :json => @people.to_json, :callback => params[:callback] }
     end
   end
 
@@ -76,8 +76,8 @@ class PeopleController < ApplicationController
         @future_events = []
         @past_events = []
       }
-      format.xml  { render :xml => @venue }
-      format.json  { render :json => @venue, :callback => params[:callback] }
+      format.xml  { render :xml => @person }
+      format.json  { render :json => @person, :callback => params[:callback] }
     end
   end
 
