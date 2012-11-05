@@ -314,6 +314,7 @@ ul.event_list .list_date {
   width: 500px;
 }
 .single_person .photo img {
+  width: 128px;
   float: right;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
@@ -336,6 +337,29 @@ ul.event_list .list_date {
 
 .single_person #events {
   margin-top: 1em;
+}
+
+/* @end */
+
+
+/* @group Event List
+----------------------------------------*/
+
+ul.people_list {
+  list-style-type: none;
+  margin: 0;
+}
+ul.people_list li {
+  margin: 0 0 10px 0;
+  clear: left;
+}
+ul.people_list li a {
+  font-weight: bold;
+}
+ul.people_list li img {
+  width: 50px;
+  height: 50px;
+  margin-right: 8px;
 }
 
 /* @end */

@@ -4,11 +4,16 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.xml
   def index
-    @people = Person.non_duplicates.ordered_by_ui_field(params[:order])
+    # @people = Person.non_duplicates.ordered_by_ui_field(params[:order])
+    @people = Person.all
 
     @page_title = "People"
 
-    render_people(@people)
+    respond_to do |format|
+      format.html # *.html.erb
+      format.kml  # *.kml.erb
+      format.json { render :json => @people.to_json(:include => :venue), :callback => params[:callback] }
+    end
   end
 
   # GET /people/new
@@ -21,6 +26,12 @@ class PeopleController < ApplicationController
       format.html { render :layout => !(params[:layout]=="false") }
       format.xml  { render :xml => @person }
     end
+  end
+
+  # GET /people/1/edit
+  def edit
+    @person = Person.find(params[:id])
+    @page_title = "Editing '#{@person.name}'"
   end
 
   # POST /people
@@ -67,6 +78,33 @@ class PeopleController < ApplicationController
       }
       format.xml  { render :xml => @venue }
       format.json  { render :json => @venue, :callback => params[:callback] }
+    end
+  end
+
+  # PUT /people/1
+  # PUT /people/1.xml
+  def update
+    @person = Person.find(params[:id])
+    
+    if evil_robot = !params[:trap_field].blank?
+      flash[:failure] = "<h3>Evil Robot</h3> We didn't update this person because we think you're an evil robot. If you're really not an evil robot, look at the form instructions more carefully. If this doesn't work please file a bug report and let us know."
+    end
+
+    respond_to do |format|
+      if !evil_robot && @person.update_attributes(params[:person])
+        flash[:success] = 'Person was successfully updated.'
+        format.html { 
+          if(!params[:from_event].blank?)
+            redirect_to(event_url(params[:from_event]))
+          else
+            redirect_to( person_path(@person) )
+          end
+          }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @person.errors, :status => :unprocessable_entity }
+      end
     end
   end
 

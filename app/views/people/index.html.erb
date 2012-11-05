@@ -1,0 +1,23 @@
+<% tabindex_on '#search_field' %>
+
+<div id='list_description'>
+  <h2>Viewing <strong><%= @people.size %></strong> people
+</div>
+
+<div id='list_items'>
+  <ul class='people_list'>
+    <% unless @people.blank? %>
+      <% for person in @people do %>
+        <li>
+          <img src="<%= person.photo_url %>" class="u-photo" />
+          <a href="<%= person_url(person) %>" class="u-url u-fn"><%= person.name %></a>
+        </li>
+      <% end %>
+    <% else %>
+      <li class='blank_list'>
+        <i>- No people -</i>
+      </li>
+    <% end %>
+  </ul>
+
+</div>
