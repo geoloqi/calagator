@@ -90,9 +90,11 @@
     </div>
   <% end %>
 
-  <div id="google_map">
-    <%= google_map @venue %>
-  </div>
+  <% if defined?(GOOGLE_APPLICATION_ID) %>
+    <div id="google_map">
+      <%= google_map @venue %>
+    </div>
+  <% end %>
 
   <div id='events'>
     <div id='future_events'>
