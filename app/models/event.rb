@@ -208,13 +208,11 @@ class Event < ActiveRecord::Base
   #   }
   def self.select_for_overview
     today = Time.zone.now.beginning_of_day
-    tomorrow = today + 1.day
-    after_tomorrow = tomorrow + 1.day
-    future_cutoff = today + 2.weeks
+    this_month = today + 1.month
+    future_cutoff = today + 3.months
 
     times_to_events = {
-      :today    => [],
-      :tomorrow => [],
+      :soon     => [],
       :later    => [],
       :more     => nil,
     }
@@ -223,10 +221,8 @@ class Event < ActiveRecord::Base
     # includes events any part of which occurs on or after today through on or after future_cutoff
     overview_events = self.non_duplicates.within_dates(today, future_cutoff)
     overview_events.each do |event|
-      if event.start_time < tomorrow
-        times_to_events[:today]    << event
-      elsif event.start_time >= tomorrow && event.start_time < after_tomorrow
-        times_to_events[:tomorrow] << event
+      if event.start_time < this_month
+        times_to_events[:soon]    << event
       else
         times_to_events[:later]    << event
       end
