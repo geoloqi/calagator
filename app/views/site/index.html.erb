@@ -9,7 +9,7 @@
 
   <% tags =
         @tagcloud_items_deferred.call.map{ |item|
-          tag_link(:event, item[:tag], "tagcloud_level_#{item[:level]}") 
+          tag_link_auto(:event, item[:tag], "tagcloud_level_#{item[:level]}") 
         }.join('<span class="spacer"> &middot; </span>').html_safe -%>
   <% if tags.present? %>
     <div id="tagcloud">

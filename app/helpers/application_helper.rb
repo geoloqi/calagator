@@ -195,6 +195,14 @@ module ApplicationHelper
     '<img src="' + person.photo_url + '" class="photo thumbnail" width="50" />'
   end
 
+  def tag_link_auto(type, tag, link_class=nil)
+    if tag.name.match(/user:(.+)/)
+      tag_user_link type, tag, link_class
+    else
+      tag_link type, tag, link_class
+    end
+  end
+
   def subnav_class_for(controller_name, action_name)
     return [
       "#{controller.controller_name}_#{controller.action_name}_subnav",
