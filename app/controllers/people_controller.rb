@@ -5,7 +5,12 @@ class PeopleController < ApplicationController
   # GET /people.xml
   def index
     # @people = Person.non_duplicates.ordered_by_ui_field(params[:order])
-    @people = Person.all
+    @people = Person.order :name
+    @people_events = {}
+
+    @people.each do |person|
+      @people_events[person.id] = person.events.order("start_time ASC").future.first
+    end
 
     @page_title = "People"
 

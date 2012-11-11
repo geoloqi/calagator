@@ -5,19 +5,25 @@
 </div>
 
 <div id='list_items'>
-  <ul class='people_list'>
+  <table class='people_list'>
     <% unless @people.blank? %>
       <% for person in @people do %>
-        <li>
-          <img src="<%= person.photo_url %>" class="u-photo" />
-          <a href="<%= person_url(person) %>" class="u-url u-fn"><%= person.name %></a>
-        </li>
+        <tr>
+          <td width="57"><img src="<%= person.photo_url %>" class="u-photo" width="57" /></td>
+          <td>
+            <a style="font-weight: bold; font-size: 12pt;" href="<%= person_url(person) %>" class="u-url u-fn"><%= person.name %></a><br />
+            <% if(event=@people_events[person.id]) %>
+              <%= datetime_format(event.start_time,'%b %d') -%>:
+              <a class='summary' href='<%= url_for event_url(event) %>'><%= event.title %></a>              
+            <% end %>
+          </td>
+        </tr>
       <% end %>
     <% else %>
-      <li class='blank_list'>
+      <tr class='blank_list'><td>
         <i>- No people -</i>
-      </li>
+      </td></tr>
     <% end %>
-  </ul>
+  </table>
 
 </div>
