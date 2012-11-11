@@ -41,7 +41,7 @@
 
       <% if @person.twitter.present? %>
         <h3>Twitter</h3>
-        <div class='twitter'><%= @person.twitter %></div>
+        <div class='twitter'><a href="https://twitter.com/<%= @person.twitter %>">@<%= @person.twitter %></a></div>
       <% end %>
     </div>
   </div>
