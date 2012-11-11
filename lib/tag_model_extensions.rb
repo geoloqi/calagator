@@ -110,7 +110,7 @@ module TagModelExtensions
     # * :level => The tag cloud level, the higher the count, the higher the level.
     def for_tagcloud(opts={})
       type = opts[:type] || Event
-      minimum_taggings = opts[:minimum_taggings] || 10
+      minimum_taggings = opts[:minimum_taggings] || 3
       levels = opts[:levels] || 5
       maximum_tags = opts[:maximum_tags] || 100
 
@@ -127,7 +127,29 @@ module TagModelExtensions
 
       return counts_and_tags.map do |count, tag|
         {:tag => tag, :count => count, :level => ((count.to_f / max_count.to_f) * (levels - 1)).round}
-      end.sort_by { |o| o[:tag].name }
+      end.sort_by { |o| o[:count] }.reverse
+    end
+
+    def people_for_tagcloud(opts={})
+      type = opts[:type] || Event
+      minimum_taggings = opts[:minimum_taggings] || 2
+      levels = opts[:levels] || 5
+      maximum_tags = opts[:maximum_tags] || 5
+
+      exclusions = SETTINGS.tagcloud_exclusions || ['']
+      counts_and_tags = []
+      max_count = 0
+      benchmark("Tag::for_tagcloud") do
+        for tag in ActsAsTaggableOn::Tag.find_by_sql ["SELECT tags.name, COUNT(taggings.id) AS counter FROM tags, taggings WHERE tags.id = taggings.tag_id AND taggings.taggable_type = ? AND tags.name NOT IN (?) AND tags.name LIKE 'user:%' GROUP BY tags.name HAVING COUNT(taggings.id) > ? ORDER BY counter DESC LIMIT #{maximum_tags}", type.name, exclusions, minimum_taggings]
+          count = tag.counter.to_i
+          counts_and_tags << [count, tag]
+          max_count = count if count > max_count
+        end
+      end
+
+      return counts_and_tags.map do |count, tag|
+        {:tag => tag, :count => count, :level => ((count.to_f / max_count.to_f) * (levels - 1)).round}
+      end.sort_by { |o| o[:count] }.reverse
     end
   end
 end
