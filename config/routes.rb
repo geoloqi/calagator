@@ -51,6 +51,9 @@ Calagator::Application.routes.draw do
   match '/index' => 'site#index'
   match '/index.:format' => 'site#index'
 
+  match '/people/nickname/:nickname' => 'people#find'
+  match '/people/nickname/:nickname:.:format' => 'people#find'
+
   themes_for_rails
 
   match '/:controller(/:action(/:id))'

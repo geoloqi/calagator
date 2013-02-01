@@ -111,5 +111,27 @@ class PeopleController < ApplicationController
     end
   end
 
+  def find
+    begin
+      @person = Person.where(:nickname => params[:nickname]).first
+    rescue ActiveRecord::RecordNotFound => e
+      flash[:failure] = e.to_s
+      return redirect_to(people_path)
+    end
+
+    return redirect_to(person_url(@person.duplicate_of)) if @person.duplicate?
+
+    @page_title = @person.name
+
+    respond_to do |format|
+      format.html { # show.html.erb
+        @future_events = @person.events.order("start_time ASC").future.non_duplicates.includes(:venue)
+        @past_events = @person.events.order("start_time DESC").past.non_duplicates.includes(:venue)
+      }
+      format.xml  { render :xml => @person }
+      format.json  { render :json => @person, :callback => params[:callback] }
+    end
+  end
+
 
 end
