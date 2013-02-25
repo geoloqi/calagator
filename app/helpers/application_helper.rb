@@ -185,9 +185,13 @@ module ApplicationHelper
     link_classes = [link_class]
     link_classes << "external #{tag.machine_tag[:namespace]} #{tag.machine_tag[:predicate]}" if tag.machine_tag[:url]
 
-    person = Person.where(:nickname => tag.name.match(/user:(.+)/)[1]).first
-    link_to(person, :class => link_classes.compact.join(' ')) do
-      raw '<div>' + build_person_thumbnail(person) + ' ' + person.name + '</div>'
+    person = Person.where(:nickname => tag.name.match(/user:(.+)/)[1], :active => 1).first
+    if person.nil?
+      ''
+    else
+      link_to(person, :class => link_classes.compact.join(' ')) do
+        raw '<div>' + build_person_thumbnail(person) + ' ' + person.name + '</div>'
+      end
     end
   end
 

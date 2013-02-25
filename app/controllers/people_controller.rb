@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   # GET /people.xml
   def index
     # @people = Person.non_duplicates.ordered_by_ui_field(params[:order])
-    @people = Person.order :name
+    @people = Person.where(:active => 1).order :name
     @people_events = {}
 
     @people.each do |person|

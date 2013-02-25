@@ -1,5 +1,5 @@
 class Person < ActiveRecord::Base
-  attr_accessible :name, :nickname, :email, :geoloqi_token, :twitter, :website, :photo_url
+  attr_accessible :name, :nickname, :email, :geoloqi_token, :twitter, :website, :photo_url, :active
 
   has_paper_trail
 
